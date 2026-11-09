@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Landing page, mobile</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'Inter',system-ui,sans-serif;color:#0b0b0b;background:#ffffff}
+@keyframes lineupSlide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.lineup:hover .track,.lineup:focus-within .track,.lineup:active .track{animation-play-state:paused !important}
+input::placeholder{color:#6b6b66;opacity:1}
+@keyframes menuIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.mlink{display:flex;align-items:center;min-height:56px;padding:0 16px;border-radius:18px;font-size:26px;font-weight:500;letter-spacing:-0.02em;color:#0b0b0b;text-decoration:none}
+.mlink:hover,.mlink:focus-visible{background:#ffffff;color:#0b0b0b}
+.menuback{background:rgba(255,255,255,0.55)}
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))){.menuback{background:rgba(255,255,255,0.4);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}.menupanel{background:rgba(239,239,236,0.84) !important;-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px)}}
+@media (prefers-reduced-motion: reduce){.menupanel{animation:none !important}}
+@media (prefers-reduced-motion: reduce){.track{animation:none !important}.lineup{overflow-x:auto !important}}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; display: flex; flex-direction: column; background: #ffffff; overflow: hidden; position: relative">
+
+<!-- menu backdrop: blurs the page behind the open menu -->
+<sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+<button type="button" class="menuback" aria-label="Close menu" onClick="{{ closeMenu }}" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; z-index: 20; padding: 0; border: 0; cursor: default"></button>
+</sc-if>
+
+<!-- pill bar -->
+<div style="position: relative; z-index: 40; margin: 12px 16px 0; height: 56px; box-sizing: border-box; padding: 6px; border-radius: 28px; background: #efefec; display: flex; align-items: center; gap: 8px">
+<sc-if value="{{ closedBar }}" hint-placeholder-val="{{ true }}">
+<div style="flex: none; width: 44px; height: 44px; border-radius: 22px; background: #0b0b0b; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 17px; font-weight: 800">B</div>
+<div style="flex: 1"></div>
+<button type="button" aria-label="Search events" onClick="{{ openSearch }}" style="flex: none; width: 44px; height: 44px; border: 0; border-radius: 22px; background: #ffffff; display: flex; align-items: center; justify-content: center; cursor: pointer">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0b0b0b" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+</button>
+<button type="button" style="flex: none; height: 44px; padding: 0 16px; border: 0; border-radius: 22px; background: #0b0b0b; color: #ffffff; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer">Create event</button>
+<button type="button" aria-label="Menu" aria-expanded="{{ menuOpen }}" onClick="{{ toggleMenu }}" style="flex: none; width: 44px; height: 44px; border: 0; border-radius: 22px; background: {{ menuBtnBg }}; display: flex; align-items: center; justify-content: center; cursor: pointer">
+<sc-if value="{{ menuClosed }}" hint-placeholder-val="{{ true }}">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0b0b0b" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 8h16M4 16h16"></path></svg>
+</sc-if>
+<sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+</sc-if>
+</button>
+<sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+<nav class="menupanel" aria-label="Main menu" style="position: absolute; left: 0; right: 0; top: 64px; box-sizing: border-box; padding: 12px; border-radius: 28px; background: #efefec; box-shadow: 0 24px 60px rgba(0,0,0,0.14); animation: menuIn 0.22s ease-out both">
+<a class="mlink" href="#">Explore</a>
+<a class="mlink" href="#">Organize</a>
+<a class="mlink" href="#">My tickets</a>
+<a class="mlink" href="#">Help</a>
+<a class="mlink" href="#">Log in</a>
+<a href="#" style="display: flex; gap: 12px; align-items: center; margin-top: 10px; padding: 12px; border-radius: 20px; background: #ffffff; color: #0b0b0b; text-decoration: none">
+<span aria-hidden="true" style="flex: none; width: 60px; height: 60px; border-radius: 14px; background: linear-gradient(160deg,#2b2f3a 0%,#7d5f4b 100%)"></span>
+<span style="display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 11px; font-weight: 600; letter-spacing: 0.14em; color: #6b6b66">SELLING FAST</span>
+<span style="font-size: 17px; font-weight: 600; letter-spacing: -0.01em">Rooftop Sessions</span>
+<span style="font-size: 14px; color: #6b6b66">412 tickets left</span>
+</span>
+</a>
+</nav>
+</sc-if>
+</sc-if>
+<sc-if value="{{ searchOpen }}" hint-placeholder-val="{{ false }}">
+<div style="flex: none; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0b0b0b" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+</div>
+<input type="search" aria-label="Search events" placeholder="Try “Free events this weekend”" style="flex: 1; min-width: 0; height: 44px; border: 0; background: transparent; font-family: inherit; font-size: 16px; color: #0b0b0b; outline: none">
+<button type="button" aria-label="Close search" onClick="{{ closeSearch }}" style="flex: none; width: 44px; height: 44px; border: 0; border-radius: 22px; background: #ffffff; display: flex; align-items: center; justify-content: center; cursor: pointer">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0b0b0b" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+</button>
+</sc-if>
+</div>
+
+<!-- headline -->
+<h1 style="margin: 30px 16px 0; font-size: 72px; font-weight: 500; line-height: 0.94; letter-spacing: -0.05em">Find your world.</h1>
+
+<!-- moving lineup -->
+<div class="lineup" style="margin-top: 26px; height: 296px; padding: 8px 0; box-sizing: border-box; overflow-x: hidden; overflow-y: hidden; position: relative">
+<div class="track" style="display: flex; width: max-content; animation: lineupSlide 40s linear infinite; animation-play-state: {{ playState }}">
+<sc-for list="{{ loop }}" as="ev" hint-placeholder-count="12">
+<button type="button" class="card" onClick="{{ ev.pick }}" aria-label="{{ ev.aria }}" style="flex: none; width: 210px; height: 280px; margin-right: 14px; padding: 0; border: 0; border-radius: 18px; overflow: hidden; position: relative; cursor: pointer; text-align: left; font-family: inherit; color: #ffffff; background: {{ ev.bg }}; box-shadow: {{ ev.ring }}">
+<span aria-hidden="true" style="position: absolute; left: -4px; bottom: 54px; font-size: 104px; font-weight: 800; letter-spacing: -0.05em; line-height: 0.8; color: rgba(255,255,255,0.16); white-space: nowrap">{{ ev.art }}</span>
+<span style="position: absolute; left: 0; right: 0; top: 0; height: 120px; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0))"></span>
+<span style="position: absolute; left: 0; right: 0; bottom: 0; height: 90px; background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.72))"></span>
+<span style="position: absolute; left: 12px; right: 12px; top: 12px; display: flex; gap: 10px; align-items: flex-start">
+<span style="flex: none; width: 42px; height: 48px; border-radius: 10px; background: #ffffff; color: #0b0b0b; display: flex; flex-direction: column; align-items: center; justify-content: center">
+<span style="font-size: 18px; font-weight: 700; line-height: 1">{{ ev.day }}</span>
+<span style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; color: #4a4a46; margin-top: 2px">{{ ev.mon }}</span>
+</span>
+<span style="font-size: 19px; font-weight: 700; line-height: 1.12; letter-spacing: -0.01em">{{ ev.title }}</span>
+</span>
+<span style="position: absolute; left: 12px; right: 12px; bottom: 12px; display: flex; flex-direction: column; gap: 3px; font-size: 12px; font-weight: 600">
+<span style="display: flex; align-items: center; gap: 5px">
+<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" aria-hidden="true"><path d="M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>
+<span>{{ ev.venue }}</span>
+</span>
+<span>{{ ev.priceLine }}</span>
+</span>
+</button>
+</sc-for>
+</div>
+</div>
+
+<!-- caption row + pause -->
+<div style="margin: 6px 16px 0; display: flex; align-items: center; justify-content: space-between">
+<span style="font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #6b6b66">Top picks this week</span>
+<button type="button" onClick="{{ togglePause }}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 22px; background: #f2f2f0; color: #0b0b0b; display: flex; align-items: center; gap: 8px; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer">
+<sc-if value="{{ running }}" hint-placeholder-val="{{ true }}">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="#0b0b0b" aria-hidden="true"><rect x="5" y="4" width="4.5" height="16" rx="1"></rect><rect x="14.5" y="4" width="4.5" height="16" rx="1"></rect></svg>
+</sc-if>
+<sc-if value="{{ paused }}" hint-placeholder-val="{{ false }}">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="#0b0b0b" aria-hidden="true"><path d="M7 4l13 8-13 8z"></path></svg>
+</sc-if>
+<span>{{ pauseLabel }}</span>
+</button>
+</div>
+
+<!-- selected event -->
+<div style="margin: 14px 16px 0">
+<div style="font-size: 22px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.15">{{ sel.title }}</div>
+<div style="margin-top: 4px; font-size: 15px; color: #6b6b66">{{ sel.when }} · {{ sel.venue }}</div>
+<div style="font-size: 15px; color: #6b6b66">{{ sel.left }}</div>
+</div>
+
+<div style="margin: 16px 16px 0; display: flex; gap: 10px">
+<button type="button" style="flex: none; height: 52px; padding: 0 28px; border: 0; border-radius: 26px; background: #a95443; color: #ffffff; font-family: inherit; font-size: 16px; font-weight: 600; cursor: pointer">View event</button>
+<button type="button" style="flex: none; height: 52px; padding: 0 24px; border: 0; border-radius: 26px; background: #f2f2f0; color: #0b0b0b; font-family: inherit; font-size: 16px; font-weight: 600; cursor: pointer">View all</button>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const st = this.state || {};
+    const selected = st.selected ?? 0;
+    const paused = !!st.paused;
+    const searchOpen = !!st.searchOpen;
+    const menuOpen = !!st.menuOpen;
+    const base = [
+      { day: '31', mon: 'OCT', title: 'Rooftop Sessions', venue: 'Westlands, Nairobi', price: 'KES 1,500', art: 'ROOF', when: 'Fri 31 Oct · 7 PM', left: '412 tickets left', bg: 'linear-gradient(160deg,#2b2f3a 0%,#7d5f4b 100%)' },
+      { day: '01', mon: 'NOV', title: 'Savannah Night Market', venue: 'Karen, Nairobi', price: 'KES 500', art: 'NIGHT', when: 'Sat 1 Nov · 5 PM', left: '1,200 tickets left', bg: 'linear-gradient(160deg,#1f3a2e 0%,#8a6b2f 100%)' },
+      { day: '01', mon: 'NOV', title: 'Jazz at the Gardens', venue: 'Lavington, Nairobi', price: 'KES 2,000', art: 'JAZZ', when: 'Sat 1 Nov · 8 PM', left: '40 VIP tickets left', bg: 'linear-gradient(160deg,#2a2240 0%,#8a4f68 100%)' },
+      { day: '02', mon: 'NOV', title: 'Sunday Run Club Social', venue: 'Kilimani, Nairobi', price: 'Free', art: 'RUN', when: 'Sun 2 Nov · 7 AM', left: 'Free entry', bg: 'linear-gradient(160deg,#16323f 0%,#3f7f86 100%)' },
+      { day: '07', mon: 'NOV', title: 'Comedy Cellar Nairobi', venue: 'Westlands, Nairobi', price: 'KES 1,200', art: 'LIVE', when: 'Fri 7 Nov · 8 PM', left: '120 tickets left', bg: 'linear-gradient(160deg,#3a1f1f 0%,#a8523a 100%)' },
+      { day: '08', mon: 'NOV', title: 'Kilimani Art Walk', venue: 'Kilimani, Nairobi', price: 'KES 800', art: 'ART', when: 'Sat 8 Nov · 10 AM', left: '85 tickets left', bg: 'linear-gradient(160deg,#2c2c2c 0%,#6b6b66 100%)' }
+    ];
+    const loop = [];
+    [0, 1].forEach((copy) => {
+      base.forEach((e, i) => {
+        const priceLine = e.price === 'Free' ? 'Free entry' : 'from ' + e.price;
+        loop.push({
+          id: copy + '-' + i,
+          day: e.day, mon: e.mon, title: e.title, venue: e.venue, art: e.art, bg: e.bg, priceLine: priceLine,
+          ring: i === selected ? '0 0 0 3px #ffffff, 0 0 0 6px #0b0b0b' : 'none',
+          aria: e.title + ', ' + e.when + ', ' + e.venue + ', ' + priceLine,
+          pick: () => this.setState({ selected: i })
+        });
+      });
+    });
+    return {
+      loop: loop,
+      sel: base[selected],
+      playState: paused ? 'paused' : 'running',
+      paused: paused,
+      running: !paused,
+      pauseLabel: paused ? 'Play' : 'Pause',
+      togglePause: () => this.setState({ paused: !paused }),
+      searchOpen: searchOpen,
+      closedBar: !searchOpen,
+      openSearch: () => this.setState({ searchOpen: true, menuOpen: false }),
+      closeSearch: () => this.setState({ searchOpen: false }),
+      menuOpen: menuOpen,
+      menuClosed: !menuOpen,
+      menuBtnBg: menuOpen ? '#0b0b0b' : '#ffffff',
+      toggleMenu: () => this.setState({ menuOpen: !menuOpen }),
+      closeMenu: () => this.setState({ menuOpen: false })
+    };
+  }
+}
+</script>
+</body>
+</html>

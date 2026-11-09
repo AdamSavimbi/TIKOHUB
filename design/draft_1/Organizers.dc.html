@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>For organizers</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'Inter',system-ui,sans-serif;color:#0b0b0b;background:#ffffff}
+@media (prefers-reduced-motion: reduce){*{transition:none !important}}
+</style>
+</helmet>
+<div style="width: 390px; height: 1000px; box-sizing: border-box; padding: 36px 16px 24px; background: #ffffff; display: flex; flex-direction: column; overflow: hidden">
+
+<div style="font-size: 12px; font-weight: 600; letter-spacing: 0.16em; color: #6b6b66">FOR ORGANIZERS</div>
+<h2 style="margin: 12px 0 0; font-size: 44px; font-weight: 500; line-height: 0.98; letter-spacing: -0.045em">Run your event with us.</h2>
+<p style="margin: 14px 0 0; font-size: 16px; line-height: 1.45; color: #6b6b66">Create an event in minutes, sell with M-Pesa, and watch your sales live.</p>
+<div style="margin-top: 20px; display: flex; gap: 10px">
+<button type="button" style="flex: none; height: 52px; padding: 0 28px; border: 0; border-radius: 26px; background: #a95443; color: #ffffff; font-family: inherit; font-size: 16px; font-weight: 600; cursor: pointer">Create event</button>
+<button type="button" style="flex: none; height: 52px; padding: 0 24px; border: 0; border-radius: 26px; background: #f2f2f0; color: #0b0b0b; font-family: inherit; font-size: 16px; font-weight: 600; cursor: pointer">Learn more</button>
+</div>
+
+<div style="margin-top: 24px; height: 380px; border-radius: 28px; overflow: hidden; position: relative; background: #0b0b0b; flex: none">
+<sc-for list="{{ orgs }}" as="o" hint-placeholder-count="6">
+<div aria-hidden="true" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; background: {{ o.bg }}; opacity: {{ o.layer }}; transition: opacity 0.7s ease"></div>
+</sc-for>
+<div aria-hidden="true" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.12) 40%, rgba(0,0,0,0.62))"></div>
+<div style="position: absolute; left: 0; top: 0; right: 0; height: 300px; overflow: hidden">
+<div style="transform: translateY({{ shift }}px); transition: transform 0.5s ease">
+<sc-for list="{{ orgs }}" as="o" hint-placeholder-count="6">
+<button type="button" onClick="{{ o.pick }}" style="display: block; width: 100%; height: 52px; padding: 0 20px; border: 0; background: transparent; color: #ffffff; text-align: center; font-family: inherit; font-size: 30px; font-weight: 600; letter-spacing: -0.03em; cursor: pointer; opacity: {{ o.op }}; transition: opacity 0.5s ease">{{ o.name }}</button>
+</sc-for>
+</div>
+</div>
+<button type="button" aria-label="{{ rotLabel }}" onClick="{{ toggleRot }}" style="position: absolute; right: 12px; top: 12px; z-index: 3; width: 44px; height: 44px; border: 0; border-radius: 22px; background: rgba(255,255,255,0.92); display: flex; align-items: center; justify-content: center; cursor: pointer">
+<sc-if value="{{ rotRunning }}" hint-placeholder-val="{{ true }}">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="#0b0b0b" aria-hidden="true"><rect x="5" y="4" width="4.5" height="16" rx="1"></rect><rect x="14.5" y="4" width="4.5" height="16" rx="1"></rect></svg>
+</sc-if>
+<sc-if value="{{ rotPaused }}" hint-placeholder-val="{{ false }}">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="#0b0b0b" aria-hidden="true"><path d="M7 4l13 8-13 8z"></path></svg>
+</sc-if>
+</button>
+<div style="position: absolute; left: 20px; right: 16px; bottom: 16px; display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; color: #ffffff">
+<div>
+<div style="font-size: 13px; font-weight: 600">{{ cur.tag }}</div>
+<div style="margin-top: 2px; font-size: 13px; opacity: 0.85">{{ cur.count }}</div>
+</div>
+<button type="button" style="flex: none; height: 44px; padding: 0 18px; border: 0; border-radius: 22px; background: #ffffff; color: #0b0b0b; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer">View organizer</button>
+</div>
+</div>
+<div style="margin-top: 8px; font-size: 12px; color: #6b6b66">Sample organizers and numbers.</div>
+
+<div style="margin-top: 10px; display: flex; flex-direction: column">
+<div style="border-top: 1px solid #e4e4e0; padding: 14px 0">
+<div style="font-size: 20px; font-weight: 600; letter-spacing: -0.02em">Sell in minutes</div>
+<div style="margin-top: 4px; font-size: 15px; line-height: 1.4; color: #6b6b66">Create your event, set your tickets and share one link.</div>
+</div>
+<div style="border-top: 1px solid #e4e4e0; padding: 14px 0">
+<div style="font-size: 20px; font-weight: 600; letter-spacing: -0.02em">See sales live</div>
+<div style="margin-top: 4px; font-size: 15px; line-height: 1.4; color: #6b6b66">Track every ticket and every shilling as it happens.</div>
+</div>
+<div style="border-top: 1px solid #e4e4e0; padding: 14px 0">
+<div style="font-size: 20px; font-weight: 600; letter-spacing: -0.02em">Check in with a scan</div>
+<div style="margin-top: 4px; font-size: 15px; line-height: 1.4; color: #6b6b66">Every ticket has its own QR code, checked at the gate.</div>
+</div>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1000}}'>
+class Component extends DCLogic {
+  componentDidMount() {
+    this._iv = setInterval(() => {
+      const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const s = this.state || {};
+      if (s.paused || reduce) return;
+      this.setState({ sel: (((s.sel || 0) + 1) % 6) });
+    }, 3200);
+  }
+  componentWillUnmount() {
+    if (this._iv) clearInterval(this._iv);
+  }
+  renderVals() {
+    const st = this.state || {};
+    const sel = st.sel || 0;
+    const base = [
+      { name: 'Rooftop Collective', tag: 'Nightlife · Westlands', count: '24 events this year', bg: 'linear-gradient(160deg,#1d2a4a 0%,#3f6fb0 100%)' },
+      { name: 'Savannah Nights', tag: 'Markets · Karen', count: '12 events this year', bg: 'linear-gradient(160deg,#1f3a2e 0%,#8a6b2f 100%)' },
+      { name: 'Gardens Jazz Society', tag: 'Live music · Lavington', count: '9 events this year', bg: 'linear-gradient(160deg,#2a2240 0%,#8a4f68 100%)' },
+      { name: 'Kilimani Run Club', tag: 'Community · Kilimani', count: '31 events this year', bg: 'linear-gradient(160deg,#16323f 0%,#3f7f86 100%)' },
+      { name: 'Comedy Cellar Crew', tag: 'Comedy · Westlands', count: '18 events this year', bg: 'linear-gradient(160deg,#3a1f1f 0%,#a8523a 100%)' },
+      { name: 'Art Walk Kilimani', tag: 'Arts · Kilimani', count: '7 events this year', bg: 'linear-gradient(160deg,#2c2c2c 0%,#6b6b66 100%)' }
+    ];
+    const orgs = base.map((o, i) => {
+      const d = Math.abs(i - sel);
+      const op = d === 0 ? 1 : d === 1 ? 0.5 : d === 2 ? 0.28 : 0.14;
+      return { id: 'o' + i, name: o.name, bg: o.bg, layer: i === sel ? 1 : 0, op: op, pick: () => this.setState({ sel: i, paused: true }) };
+    });
+    const paused = !!st.paused;
+    return {
+      orgs: orgs,
+      shift: 124 - sel * 52,
+      cur: base[sel],
+      rotPaused: paused,
+      rotRunning: !paused,
+      rotLabel: paused ? 'Play organizer rotation' : 'Pause organizer rotation',
+      toggleRot: () => this.setState({ paused: !paused })
+    };
+  }
+}
+</script>
+</body>
+</html>

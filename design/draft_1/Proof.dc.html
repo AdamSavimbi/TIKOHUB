@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Proof, not promises</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'Inter',system-ui,sans-serif;color:#0b0b0b;background:#ffffff}
+</style>
+</helmet>
+<div style="width: 390px; height: 780px; box-sizing: border-box; padding: 36px 16px 28px; background: #ffffff; display: flex; flex-direction: column; overflow: hidden">
+
+<div style="font-size: 12px; font-weight: 600; letter-spacing: 0.16em; color: #6b6b66">BY THE NUMBERS</div>
+<h2 style="margin: 12px 0 0; font-size: 44px; font-weight: 500; line-height: 0.98; letter-spacing: -0.045em">Proof, not promises.</h2>
+<p style="margin: 14px 0 0; font-size: 16px; line-height: 1.45; color: #6b6b66">Real events, real tickets, counted live.</p>
+
+<div ref="{{ statsRef }}" style="margin-top: 26px; display: flex; flex-direction: column">
+<sc-for list="{{ stats }}" as="s" hint-placeholder-count="4">
+<div style="border-top: 1px solid #e4e4e0; padding: 18px 0; display: flex; align-items: flex-end; justify-content: space-between; gap: 12px">
+<div style="width: 150px; flex: none">
+<div style="font-size: 11px; font-weight: 600; letter-spacing: 0.14em; color: #0b0b0b">{{ s.label }}</div>
+<div style="margin-top: 6px; font-size: 13px; line-height: 1.4; color: #6b6b66">{{ s.caption }}</div>
+</div>
+<div style="flex: 1; text-align: right; position: relative">
+<span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">{{ s.finalText }}</span>
+<span aria-hidden="true" style="display: block; font-size: 56px; font-weight: 400; letter-spacing: -0.045em; line-height: 1; font-variant-numeric: tabular-nums">{{ s.text }}</span>
+</div>
+</div>
+</sc-for>
+<div style="border-top: 1px solid #e4e4e0"></div>
+</div>
+
+<div style="margin-top: 20px; display: flex; align-items: center; gap: 14px">
+<button type="button" onClick="{{ replay }}" style="flex: none; height: 44px; padding: 0 18px; border: 0; border-radius: 22px; background: #f2f2f0; color: #0b0b0b; display: flex; align-items: center; gap: 8px; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0b0b0b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"></path><path d="M3 4v5h5"></path></svg>
+<span>Replay</span>
+</button>
+<span style="font-size: 12px; line-height: 1.4; color: #6b6b66">Sample numbers. Real totals replace these at launch.</span>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":780}}'>
+class Component extends DCLogic {
+  componentDidMount() {
+    this._begin = () => {
+      this._began = true;
+      if (this._raf) cancelAnimationFrame(this._raf);
+      const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce) { this.setState({ p: 1 }); return; }
+      const t0 = performance.now();
+      const dur = 2000;
+      const step = (now) => {
+        const p = Math.min(1, (now - t0) / dur);
+        this.setState({ p: p });
+        if (p < 1) this._raf = requestAnimationFrame(step);
+      };
+      this.setState({ p: 0 });
+      this._raf = requestAnimationFrame(step);
+    };
+    const el = this._statsEl;
+    if (typeof IntersectionObserver !== 'undefined' && el) {
+      this._io = new IntersectionObserver((entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          this._io.disconnect();
+          this._begin();
+        }
+      }, { threshold: 0.4 });
+      this._io.observe(el);
+    }
+    this._fallback = setTimeout(() => { if (!this._began) this._begin(); }, 1500);
+  }
+  componentWillUnmount() {
+    if (this._raf) cancelAnimationFrame(this._raf);
+    if (this._fallback) clearTimeout(this._fallback);
+    if (this._io) this._io.disconnect();
+  }
+  renderVals() {
+    const st = this.state || {};
+    const p = st.p === undefined ? 0 : st.p;
+    const e = 1 - Math.pow(1 - p, 3);
+    const fmt = (n) => Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    this._setStats = this._setStats || ((el) => { this._statsEl = el; });
+    const stats = [
+      { id: 's0', label: 'EVENTS HOSTED', caption: 'From small socials to big nights', text: fmt(1240 * e) + '+', finalText: 'Events hosted: 1,240 plus' },
+      { id: 's1', label: 'TICKETS SOLD', caption: 'Each one opened in a browser, no app', text: fmt(86 * e) + 'k+', finalText: 'Tickets sold: 86 thousand plus' },
+      { id: 's2', label: 'ORGANIZERS SELLING', caption: 'Selling here, and coming back', text: fmt(320 * e) + '+', finalText: 'Organizers selling: 320 plus' },
+      { id: 's3', label: 'ACTIVE CITIES', caption: 'And growing', text: fmt(6 * e), finalText: 'Active cities: 6' }
+    ];
+    return {
+      stats: stats,
+      statsRef: this._setStats,
+      replay: () => { if (this._begin) this._begin(); }
+    };
+  }
+}
+</script>
+</body>
+</html>
