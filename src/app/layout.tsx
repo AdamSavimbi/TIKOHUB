@@ -10,7 +10,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "BRAND",
+  title: "TikoPoa",
   description: "Find events and get tickets.",
 };
 

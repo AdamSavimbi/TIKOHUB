@@ -127,6 +127,43 @@
   --radius-panel-size: 1.75rem; /* 28px */
 }
 
+/* Animations: animate-live-ping, animate-bubble-in, animate-typing-in, animate-typing-dot */
+@theme {
+  --animate-live-ping: live-ping 1.6s ease-out infinite;
+  --animate-bubble-in: bubble-in 0.35s ease-out both;
+  --animate-typing-in: bubble-in 0.25s ease-out both;
+  --animate-typing-dot: typing-dot 1.1s infinite;
+
+  @keyframes live-ping {
+    0% {
+      box-shadow: 0 0 0 0 color-mix(in oklch, var(--success) 50%, transparent);
+    }
+    100% {
+      box-shadow: 0 0 0 8px color-mix(in oklch, var(--success) 0%, transparent);
+    }
+  }
+  @keyframes bubble-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px) scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes typing-dot {
+    0%,
+    60%,
+    100% {
+      opacity: 0.3;
+    }
+    30% {
+      opacity: 1;
+    }
+  }
+}
+
 @layer base {
   * {
     @apply border-border;
@@ -172,10 +209,15 @@
   color: var(--muted-foreground);
 }
 
+/*
+ * Reduced motion: near-instant animations and transitions site-wide.
+ * Opt-out: an element with data-motion="always" (and everything inside it)
+ * keeps its animations. Use only where the owner has decided motion stays.
+ */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  *:not(:where([data-motion="always"], [data-motion="always"] *)),
+  *:not(:where([data-motion="always"], [data-motion="always"] *))::before,
+  *:not(:where([data-motion="always"], [data-motion="always"] *))::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
