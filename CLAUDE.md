@@ -69,3 +69,17 @@ When a section or page is done:
 2. Start the dev server, screenshot the page at 390px wide, and compare it side by side with the matching `design/draft_1/*.dc.html` (open it in the browser; `support.js` renders it).
 3. List every difference, including small ones (spacing, font size, colour), and fix them.
 4. Report: files created or changed, shadcn components used, and anything uncertain.
+
+## Agent skills
+
+### Issue tracker
+
+Issues live in GitHub Issues for `AdamSavimbi/TIKOHUB`, managed with the `gh` CLI. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Default vocabulary: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context: `GLOSSARY.md` and `docs/adr/` at the repo root. See `docs/agents/domain.md`.
