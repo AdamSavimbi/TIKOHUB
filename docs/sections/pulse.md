@@ -2,7 +2,7 @@
 
 Homepage section below the hero: a live countdown to the next on-sale and a looping sample chat showing site activity.
 
-- **Design spec:** `design/draft_1/Pulse.dc.html`
+- **Design spec:** `design/01-live-pulse/design/Pulse.dc.html` (behaviour in `design/01-live-pulse/SPEC.md`)
 - **Status:** approved 2026-11-09
 
 ## Files
