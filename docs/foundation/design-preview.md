@@ -1,12 +1,12 @@
 # Design preview
 
-Lets the design artboards in `design/draft_1/*.dc.html` open live in a browser, so each built section can be compared side by side with its design.
+Lets the design artboards in `design/<section>/design/*.dc.html` open live in a browser, so each built section can be compared side by side with its design.
 
 - **Status:** approved 2026-11-09
 
 ## Files
 
-- `design/draft_1/support.js`: small runtime each artboard already loads (`<script src="./support.js">`).
+- `design/support.js`: small runtime each artboard already loads (`<script src="./support.js">`), reached through a `support.js` symlink in each `design/<section>/design/`.
 
 ## What it does
 

@@ -2,7 +2,7 @@
 
 <One sentence: what this is and where it appears.>
 
-- **Design spec:** `design/draft_1/<File>.dc.html`
+- **Design spec:** `design/<NN-section>/design/<File>.dc.html`
 - **Status:** approved YYYY-MM-DD
 
 ## Files

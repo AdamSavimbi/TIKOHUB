@@ -5,8 +5,8 @@
 ## Paths
 
 - The app lives in `src/`. "app/page.tsx" means `src/app/page.tsx`, "components/..." means `src/components/...`, and "lib/..." means `src/lib/...`.
-- Design specs live in `design/draft_1/`. Read `design/draft_1/README.md` first. Each `*.dc.html` is one artboard, 390px wide unless noted. They are a custom format, not React: rebuild them, don't copy them. Designer notes describing behaviour are in `design/draft_1/canvas.json` under `notes`.
-- `design/draft_1/support.js` makes each artboard open live in a browser (`file://`), so it can be screenshotted next to the built section. Design preview only; never import it into the app.
+- Design specs live in `design/`: one numbered folder per landing-page section, in page order. Read `design/README.md` first, then the section's `SPEC.md`. Artboards are `design/<section>/design/*.dc.html`, 390px wide unless noted (`Desktop.dc.html` is fluid). They are a custom format, not React: rebuild them, don't copy them. Inspiration images are in `design/<section>/inspiration/`.
+- `design/support.js` makes each artboard open live in a browser (`file://`), so it can be screenshotted next to the built section. Artboards load `./support.js`, so each `design/<section>/design/support.js` is a symlink to it (`../../support.js`): edit the root file, and give any new section folder the same symlink. Design preview only; never import it into the app.
 - The brand name is "TikoPoa" (initial "T"). The design files still say "BRAND" and "B"; always use TikoPoa in the app.
 
 ## Theme and tokens
@@ -66,7 +66,7 @@ Quiet white, Posh style: minimal, lots of white space, one huge tight headline p
 When a section or page is done:
 
 1. Run `npx tsc --noEmit` and `npm run lint`, and fix every error.
-2. Start the dev server, screenshot the page at 390px wide, and compare it side by side with the matching `design/draft_1/*.dc.html` (open it in the browser; `support.js` renders it).
+2. Start the dev server, screenshot the page at 390px and at 1440px wide, and compare each side by side with the matching `design/<section>/design/*.dc.html` (open it in the browser; `support.js` renders it). Compare 1440px with `Desktop.dc.html` where the section has one; otherwise check it against the section's `SPEC.md`.
 3. List every difference, including small ones (spacing, font size, colour), and fix them.
 4. Report: files created or changed, shadcn components used, and anything uncertain.
 

@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Landing page, desktop</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'Inter',system-ui,sans-serif;color:#0b0b0b;background:#ffffff}
+a{color:#0b0b0b;text-decoration:none}
+a:hover{color:#a95443}
+@keyframes lineupSlide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.lineup:hover .track,.lineup:focus-within .track,.lineup:active .track{animation-play-state:paused !important}
+input::placeholder{color:#6b6b66;opacity:1}
+@keyframes menuIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.navitem{height:48px;padding:0 18px;border:0;border-radius:24px;background:transparent;color:#0b0b0b;font-family:inherit;font-size:15px;font-weight:500;cursor:pointer}
+.navitem:hover,.navitem:focus-visible,.navitem[aria-expanded="true"]{background:#ffffff}
+.plink{display:block;padding:8px 0;font-size:16px;font-weight:500;color:#0b0b0b;text-decoration:none}
+.plink:hover{color:#a95443}
+.menuback{background:rgba(255,255,255,0.55)}
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))){.menuback{background:rgba(255,255,255,0.4);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}.menupanel{background:rgba(239,239,236,0.84) !important;-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px)}}
+@media (max-width: 760px){.pgrid{grid-template-columns:1fr !important}}
+@media (prefers-reduced-motion: reduce){.menupanel{animation:none !important}}
+@media (max-width: 760px){.navlinks,.wordmark{display:none !important}}
+@media (prefers-reduced-motion: reduce){.track{animation:none !important}.lineup{overflow-x:auto !important}}
+</style>
+</helmet>
+<div style="position: relative; width: 100%; min-height: 900px; box-sizing: border-box; display: flex; flex-direction: column; background: #ffffff; overflow: hidden">
+
+<!-- menu backdrop: blurs the page behind the open menu -->
+<sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+<button type="button" class="menuback" aria-label="Close menu" onClick="{{ closeMenu }}" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; z-index: 20; padding: 0; border: 0; cursor: default"></button>
+</sc-if>
+
+<!-- pill bar -->
+<div onMouseLeave="{{ closeMenu }}" style="position: relative; z-index: 40; margin: 20px auto 0; width: calc(100% - 32px); max-width: 880px; height: 64px; box-sizing: border-box; padding: 8px; border-radius: 32px; background: #efefec; display: flex; align-items: center; gap: 8px">
+<sc-if value="{{ closedBar }}" hint-placeholder-val="{{ true }}">
+<div style="flex: none; width: 48px; height: 48px; border-radius: 24px; background: #0b0b0b; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 800">B</div>
+<span class="wordmark" style="margin-left: 4px; font-size: 15px; font-weight: 800; letter-spacing: 0.2em">BRAND</span>
+<nav class="navlinks" aria-label="Main" style="flex: 1; display: flex; justify-content: center; gap: 4px">
+<button type="button" class="navitem" aria-expanded="{{ exploreOpen }}" onMouseEnter="{{ openExplore }}" onClick="{{ openExplore }}">Explore</button>
+<button type="button" class="navitem" aria-expanded="{{ organizeOpen }}" onMouseEnter="{{ openOrganize }}" onClick="{{ openOrganize }}">Organize</button>
+<button type="button" class="navitem" aria-expanded="{{ helpOpen }}" onMouseEnter="{{ openHelp }}" onClick="{{ openHelp }}">Help</button>
+</nav>
+<div style="flex: 1"></div>
+<button type="button" aria-label="Search events" onClick="{{ openSearch }}" style="flex: none; width: 48px; height: 48px; border: 0; border-radius: 24px; background: #ffffff; display: flex; align-items: center; justify-content: center; cursor: pointer">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0b0b0b" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+</button>
+<button type="button" style="flex: none; height: 48px; padding: 0 22px; border: 0; border-radius: 24px; background: #ffffff; color: #0b0b0b; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Log in</button>
+<button type="button" style="flex: none; height: 48px; padding: 0 22px; border: 0; border-radius: 24px; background: #0b0b0b; color: #ffffff; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Create event</button>
+<sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; left: 0; right: 0; top: 64px; padding-top: 10px">
+<div class="menupanel pgrid" style="box-sizing: border-box; padding: 28px; border-radius: 32px; background: #efefec; box-shadow: 0 30px 80px rgba(0,0,0,0.14); animation: menuIn 0.22s ease-out both; display: grid; grid-template-columns: 1fr 1fr 1.15fr; gap: 28px">
+
+<sc-if value="{{ exploreOpen }}" hint-placeholder-val="{{ true }}">
+<div>
+<div style="font-size: 11px; font-weight: 600; letter-spacing: 0.14em; color: #6b6b66; margin-bottom: 8px">BROWSE</div>
+<a class="plink" href="#">This weekend</a>
+<a class="plink" href="#">Free events</a>
+<a class="plink" href="#">Under KES 1,000</a>
+<a class="plink" href="#">Live music</a>
+<a class="plink" href="#">Nightlife</a>
+</div>
+<div>
+<div style="font-size: 11px; font-weight: 600; letter-spacing: 0.14em; color: #6b6b66; margin-bottom: 8px">CITIES</div>
+<a class="plink" href="#">Nairobi</a>
+<a class="plink" href="#">Mombasa</a>
+<a class="plink" href="#">Kisumu</a>
+<a class="plink" href="#">Nakuru</a>
+<a class="plink" href="#">Eldoret</a>
+</div>
+<a href="#" style="display: block; padding: 14px; border-radius: 24px; background: #ffffff; color: #0b0b0b">
+<span style="display: block; height: 120px; border-radius: 16px; background: linear-gradient(160deg,#2b2f3a 0%,#7d5f4b 100%)"></span>
+<span style="display: block; margin-top: 12px; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; color: #6b6b66">SELLING FAST</span>
+<span style="display: block; margin-top: 4px; font-size: 20px; font-weight: 600; letter-spacing: -0.02em">Rooftop Sessions</span>
+<span style="display: block; margin-top: 2px; font-size: 14px; color: #6b6b66">Fri 31 Oct · 412 tickets left</span>
+</a>
+</sc-if>
+
+<sc-if value="{{ organizeOpen }}" hint-placeholder-val="{{ false }}">
+<div>
+<div style="font-size: 11px; font-weight: 600; letter-spacing: 0.14em; color: #6b6b66; margin-bottom: 8px">SELL TICKETS</div>
+<a class="plink" href="#">Create an event</a>
+<a class="plink" href="#">Fees and payouts</a>
+<a class="plink" href="#">Organizer dashboard</a>
+<a class="plink" href="#">Scan at the door</a>
+</div>
+<div>
+<div style="font-size: 11px; font-weight: 600; letter-spacing: 0.14em; color: #6b6b66; margin-bottom: 8px">RESOURCES</div>
+<a class="plink" href="#">Waiting room for big sales</a>
+<a class="plink" href="#">Guides</a>
+<a class="plink" href="#">Talk to us</a>
+</div>
+<a href="#" style="display: block; padding: 14px; border-radius: 24px; background: #ffffff; color: #0b0b0b">
+<span style="display: block; height: 120px; border-radius: 16px; background: linear-gradient(160deg,#1d2a4a 0%,#3f6fb0 100%)"></span>
+<span style="display: block; margin-top: 12px; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; color: #6b6b66">BUILT FOR SALE DAY</span>
+<span style="display: block; margin-top: 4px; font-size: 20px; font-weight: 600; letter-spacing: -0.02em">Thousands at once</span>
+<span style="display: block; margin-top: 2px; font-size: 14px; color: #6b6b66">A waiting room keeps checkout fast and stops overselling.</span>
+</a>
+</sc-if>
+
+<sc-if value="{{ helpOpen }}" hint-placeholder-val="{{ false }}">
+<div>
+<div style="font-size: 11px; font-weight: 600; letter-spacing: 0.14em; color: #6b6b66; margin-bottom: 8px">SUPPORT</div>
+<a class="plink" href="#">Help centre</a>
+<a class="plink" href="#">Contact us</a>
+<a class="plink" href="#">Refunds</a>
+<a class="plink" href="#">Lost a ticket</a>
+</div>
+<div>
+<div style="font-size: 11px; font-weight: 600; letter-spacing: 0.14em; color: #6b6b66; margin-bottom: 8px">YOUR TICKETS</div>
+<a class="plink" href="#">My tickets</a>
+<a class="plink" href="#">Log in</a>
+<a class="plink" href="#">Create an account</a>
+</div>
+<a href="#" style="display: block; padding: 14px; border-radius: 24px; background: #ffffff; color: #0b0b0b">
+<span style="display: block; height: 120px; border-radius: 16px; background: linear-gradient(160deg,#2a2240 0%,#8a4f68 100%)"></span>
+<span style="display: block; margin-top: 12px; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; color: #6b6b66">LOST A TICKET?</span>
+<span style="display: block; margin-top: 4px; font-size: 20px; font-weight: 600; letter-spacing: -0.02em">Open it again</span>
+<span style="display: block; margin-top: 2px; font-size: 14px; color: #6b6b66">Enter your phone number and we send the link.</span>
+</a>
+</sc-if>
+
+</div>
+</div>
+</sc-if>
+</sc-if>
+<sc-if value="{{ searchOpen }}" hint-placeholder-val="{{ false }}">
+<div style="flex: none; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0b0b0b" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+</div>
+<input type="search" aria-label="Search events" placeholder="Try “Free events this weekend”" style="flex: 1; min-width: 0; height: 48px; border: 0; background: transparent; font-family: inherit; font-size: 17px; color: #0b0b0b; outline: none">
+<button type="button" aria-label="Close search" onClick="{{ closeSearch }}" style="flex: none; width: 48px; height: 48px; border: 0; border-radius: 24px; background: #ffffff; display: flex; align-items: center; justify-content: center; cursor: pointer">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0b0b0b" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+</button>
+</sc-if>
+</div>
+
+<!-- headline -->
+<h1 style="margin: 36px clamp(16px, 3.4vw, 48px) 0; text-align: right; font-size: clamp(64px, 11.5vw, 180px); font-weight: 500; line-height: 0.94; letter-spacing: -0.05em">Find your world.</h1>
+
+<!-- moving lineup -->
+<div class="lineup" style="margin-top: 28px; height: 366px; padding: 8px 0; box-sizing: border-box; overflow-x: hidden; overflow-y: hidden; position: relative">
+<div class="track" style="display: flex; width: max-content; animation: lineupSlide 44s linear infinite; animation-play-state: {{ playState }}">
+<sc-for list="{{ loop }}" as="ev" hint-placeholder-count="12">
+<button type="button" class="card" onClick="{{ ev.pick }}" aria-label="{{ ev.aria }}" style="flex: none; width: 270px; height: 350px; margin-right: 16px; padding: 0; border: 0; border-radius: 20px; overflow: hidden; position: relative; cursor: pointer; text-align: left; font-family: inherit; color: #ffffff; background: {{ ev.bg }}; box-shadow: {{ ev.ring }}">
+<span aria-hidden="true" style="position: absolute; left: -6px; bottom: 66px; font-size: 132px; font-weight: 800; letter-spacing: -0.05em; line-height: 0.8; color: rgba(255,255,255,0.16); white-space: nowrap">{{ ev.art }}</span>
+<span style="position: absolute; left: 0; right: 0; top: 0; height: 140px; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0))"></span>
+<span style="position: absolute; left: 0; right: 0; bottom: 0; height: 110px; background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.72))"></span>
+<span style="position: absolute; left: 16px; right: 16px; top: 16px; display: flex; gap: 12px; align-items: flex-start">
+<span style="flex: none; width: 50px; height: 56px; border-radius: 12px; background: #ffffff; color: #0b0b0b; display: flex; flex-direction: column; align-items: center; justify-content: center">
+<span style="font-size: 21px; font-weight: 700; line-height: 1">{{ ev.day }}</span>
+<span style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em; color: #4a4a46; margin-top: 2px">{{ ev.mon }}</span>
+</span>
+<span style="font-size: 23px; font-weight: 700; line-height: 1.1; letter-spacing: -0.015em">{{ ev.title }}</span>
+</span>
+<span style="position: absolute; left: 16px; right: 16px; bottom: 16px; display: flex; flex-direction: column; gap: 4px; font-size: 14px; font-weight: 600">
+<span style="display: flex; align-items: center; gap: 6px">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" aria-hidden="true"><path d="M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>
+<span>{{ ev.venue }}</span>
+</span>
+<span>{{ ev.priceLine }}</span>
+</span>
+</button>
+</sc-for>
+</div>
+</div>
+
+<!-- info + pause -->
+<div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-end; justify-content: space-between; padding: 26px clamp(16px, 3.4vw, 48px) 40px">
+<div>
+<div style="font-size: 26px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.15">{{ sel.title }}</div>
+<div style="margin-top: 4px; font-size: 17px; color: #6b6b66">{{ sel.when }} · {{ sel.venue }}</div>
+<div style="font-size: 17px; color: #6b6b66">{{ sel.left }}</div>
+<div style="margin-top: 18px; display: flex; gap: 10px">
+<button type="button" style="flex: none; height: 56px; padding: 0 32px; border: 0; border-radius: 28px; background: #a95443; color: #ffffff; font-family: inherit; font-size: 17px; font-weight: 600; cursor: pointer">View event</button>
+<button type="button" style="flex: none; height: 56px; padding: 0 28px; border: 0; border-radius: 28px; background: #f2f2f0; color: #0b0b0b; font-family: inherit; font-size: 17px; font-weight: 600; cursor: pointer">View all</button>
+</div>
+</div>
+<div style="display: flex; align-items: center; gap: 16px">
+<span style="font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #6b6b66">Top picks this week</span>
+<button type="button" onClick="{{ togglePause }}" style="height: 48px; padding: 0 18px; border: 0; border-radius: 24px; background: #f2f2f0; color: #0b0b0b; display: flex; align-items: center; gap: 8px; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">
+<sc-if value="{{ running }}" hint-placeholder-val="{{ true }}">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="#0b0b0b" aria-hidden="true"><rect x="5" y="4" width="4.5" height="16" rx="1"></rect><rect x="14.5" y="4" width="4.5" height="16" rx="1"></rect></svg>
+</sc-if>
+<sc-if value="{{ paused }}" hint-placeholder-val="{{ false }}">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="#0b0b0b" aria-hidden="true"><path d="M7 4l13 8-13 8z"></path></svg>
+</sc-if>
+<span>{{ pauseLabel }}</span>
+</button>
+</div>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const st = this.state || {};
+    const selected = st.selected ?? 0;
+    const paused = !!st.paused;
+    const searchOpen = !!st.searchOpen;
+    const menu = st.menu || null;
+    const base = [
+      { day: '31', mon: 'OCT', title: 'Rooftop Sessions', venue: 'Westlands, Nairobi', price: 'KES 1,500', art: 'ROOF', when: 'Fri 31 Oct · 7 PM', left: '412 tickets left', bg: 'linear-gradient(160deg,#2b2f3a 0%,#7d5f4b 100%)' },
+      { day: '01', mon: 'NOV', title: 'Savannah Night Market', venue: 'Karen, Nairobi', price: 'KES 500', art: 'NIGHT', when: 'Sat 1 Nov · 5 PM', left: '1,200 tickets left', bg: 'linear-gradient(160deg,#1f3a2e 0%,#8a6b2f 100%)' },
+      { day: '01', mon: 'NOV', title: 'Jazz at the Gardens', venue: 'Lavington, Nairobi', price: 'KES 2,000', art: 'JAZZ', when: 'Sat 1 Nov · 8 PM', left: '40 VIP tickets left', bg: 'linear-gradient(160deg,#2a2240 0%,#8a4f68 100%)' },
+      { day: '02', mon: 'NOV', title: 'Sunday Run Club Social', venue: 'Kilimani, Nairobi', price: 'Free', art: 'RUN', when: 'Sun 2 Nov · 7 AM', left: 'Free entry', bg: 'linear-gradient(160deg,#16323f 0%,#3f7f86 100%)' },
+      { day: '07', mon: 'NOV', title: 'Comedy Cellar Nairobi', venue: 'Westlands, Nairobi', price: 'KES 1,200', art: 'LIVE', when: 'Fri 7 Nov · 8 PM', left: '120 tickets left', bg: 'linear-gradient(160deg,#3a1f1f 0%,#a8523a 100%)' },
+      { day: '08', mon: 'NOV', title: 'Kilimani Art Walk', venue: 'Kilimani, Nairobi', price: 'KES 800', art: 'ART', when: 'Sat 8 Nov · 10 AM', left: '85 tickets left', bg: 'linear-gradient(160deg,#2c2c2c 0%,#6b6b66 100%)' }
+    ];
+    const loop = [];
+    [0, 1].forEach((copy) => {
+      base.forEach((e, i) => {
+        const priceLine = e.price === 'Free' ? 'Free entry' : 'from ' + e.price;
+        loop.push({
+          id: copy + '-' + i,
+          day: e.day, mon: e.mon, title: e.title, venue: e.venue, art: e.art, bg: e.bg, priceLine: priceLine,
+          ring: i === selected ? '0 0 0 3px #ffffff, 0 0 0 6px #0b0b0b' : 'none',
+          aria: e.title + ', ' + e.when + ', ' + e.venue + ', ' + priceLine,
+          pick: () => this.setState({ selected: i })
+        });
+      });
+    });
+    return {
+      loop: loop,
+      sel: base[selected],
+      playState: paused ? 'paused' : 'running',
+      paused: paused,
+      running: !paused,
+      pauseLabel: paused ? 'Play' : 'Pause',
+      togglePause: () => this.setState({ paused: !paused }),
+      searchOpen: searchOpen,
+      closedBar: !searchOpen,
+      openSearch: () => this.setState({ searchOpen: true, menu: null }),
+      closeSearch: () => this.setState({ searchOpen: false }),
+      menuOpen: !!menu,
+      exploreOpen: menu === 'explore',
+      organizeOpen: menu === 'organize',
+      helpOpen: menu === 'help',
+      openExplore: () => this.setState({ menu: 'explore' }),
+      openOrganize: () => this.setState({ menu: 'organize' }),
+      openHelp: () => this.setState({ menu: 'help' }),
+      closeMenu: () => this.setState({ menu: null })
+    };
+  }
+}
+</script>
+</body>
+</html>

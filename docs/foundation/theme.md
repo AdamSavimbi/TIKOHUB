@@ -1,6 +1,6 @@
 # Theme and fonts
 
-Global look of the site: quiet white, Posh style, from `design/draft_1/README.md`. Applies to every page.
+Global look of the site: quiet white, Posh style, from `design/README.md`. Applies to every page.
 
 - **Status:** approved 2026-11-09 ([PR #1](https://github.com/AdamSavimbi/TIKOHUB/pull/1))
 
