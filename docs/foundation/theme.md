@@ -27,7 +27,7 @@ Global look of the site: quiet white, Posh style, from `design/README.md`. Appli
 | `ring` | #0b0b0b | focus outline |
 
 - **Shape:** `rounded-pill` 999px, `rounded-card` 22px, `rounded-panel` 28px. Only shadow: `shadow-float`.
-- **Type:** Inter variable font. `headline` and `eyebrow` utilities; `tabular-nums` for numbers.
+- **Type:** Inter variable font. `font-wordmark` (Archivo, wide heavy italic) for the TikoPoa wordmark only. `headline` and `eyebrow` utilities; `tabular-nums` for numbers.
 - **Animations:** `animate-live-ping`, `animate-bubble-in`, `animate-typing-in`, `animate-typing-dot`, defined as theme tokens.
 - **Button:** variants `default`, `ink`, `secondary`, `outline`, `ghost`, `destructive`, `link`. Every size at least 44px.
 
@@ -47,5 +47,6 @@ Global look of the site: quiet white, Posh style, from `design/README.md`. Appli
 
 ## History
 
+- 2026-11-12: `font-wordmark` token added for the site header ([changelog](../CHANGELOG.md#2026-11-12-groundwork-for-the-landing-page)).
 - 2026-11-09: Theme, tokens, Inter and Button set up ([changelog](../CHANGELOG.md#2026-11-09-theme-and-fonts)).
 - 2026-11-09: Animation tokens, reduce-motion opt-out, TikoPoa title ([changelog](../CHANGELOG.md#2026-11-09-live-pulse-section-and-design-preview)).

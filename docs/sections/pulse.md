@@ -1,6 +1,6 @@
 # Live pulse
 
-Homepage section below the hero: a live countdown to the next on-sale and a looping sample chat showing site activity.
+First section of the landing page, directly under the header: a live countdown to the next on-sale and a looping sample chat showing site activity.
 
 - **Design spec:** `design/01-live-pulse/design/Pulse.dc.html` (behaviour in `design/01-live-pulse/SPEC.md`)
 - **Status:** approved 2026-11-09
@@ -9,7 +9,7 @@ Homepage section below the hero: a live countdown to the next on-sale and a loop
 
 - `src/components/landing/pulse.tsx`: the section (client component).
 - `src/lib/mock/pulse.ts`: all text and sample data, plus the `PulseContent` type.
-- `src/app/page.tsx`: renders it after the hero.
+- `src/app/page.tsx`: renders it first, directly under the header.
 - `src/app/globals.css`: its animations (`animate-live-ping`, `animate-bubble-in`, `animate-typing-in`, `animate-typing-dot`).
 
 ## What it does
@@ -34,7 +34,7 @@ Homepage section below the hero: a live countdown to the next on-sale and a loop
 
 ## Decisions
 
-- **No Pause/Play button:** owner decision. Exception to the CLAUDE.md rule for looping content.
+- **No Pause/Play button:** owner decision, recorded in the CLAUDE.md accessibility rules.
 - **Animates under reduce-motion too:** owner decision. The section has `data-motion="always"`, which the global reduce-motion rule skips.
 - **"Get tickets" in the chat is not clickable:** the whole chat is decorative, and a focusable button that disappears with the loop is worse for keyboard users.
 - **Countdown bubble 5px wider than the design:** fixed-width digits, so the countdown doesn't jitter.
@@ -42,4 +42,5 @@ Homepage section below the hero: a live countdown to the next on-sale and a loop
 
 ## History
 
+- 2026-11-12: Moved to first on the page, directly under the header ([changelog](../CHANGELOG.md#2026-11-12-groundwork-for-the-landing-page)).
 - 2026-11-09: Section built to match the design at 390px and scaled for desktop ([changelog](../CHANGELOG.md#2026-11-09-live-pulse-section-and-design-preview)).

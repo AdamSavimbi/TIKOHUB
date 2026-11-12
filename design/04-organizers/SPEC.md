@@ -9,7 +9,7 @@
 - Below the panel: three short benefit rows (Sell in minutes, See sales live, Check in with a scan).
 
 ## Behaviour
-- Auto-advances every about 3.2 seconds with a crossfade on the background and a smooth shift of the name list. Tapping a name selects it and stops the rotation. A visible Pause/Play button. Reduced motion: no auto-advance.
+- Auto-advances every about 3.2 seconds with a crossfade on the background and a smooth shift of the name list. Tapping a name selects it and stops the rotation. No Pause/Play button, and it keeps advancing under reduced motion (owner decision, GitHub issue #4).
 - Organizer names, counts and images are placeholders (gradients until real photos).
 
 ## 21st.dev

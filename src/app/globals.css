@@ -13,6 +13,8 @@
   /* fonts */
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-heading: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  /* wordmark only: the TikoPoa brand name in the site header */
+  --font-wordmark: var(--font-archivo), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
 
   /* shadcn colors */
