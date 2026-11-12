@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Archivo, Inter } from "next/font/google";
 import "./globals.css";
 
 import { SiteHeader } from "@/components/site-header";
@@ -9,6 +9,15 @@ import { siteHeaderContent } from "@/lib/mock/site-header";
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+  display: "swap",
+});
+
+// Archivo, wide heavy italic: used only for the TikoPoa wordmark (owner decision).
+const archivo = Archivo({
+  variable: "--font-archivo",
+  subsets: ["latin"],
+  style: "italic",
+  axes: ["wdth"],
   display: "swap",
 });
 
@@ -23,7 +32,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${inter.variable} h-full`}>
+    <html lang="en" className={`${inter.variable} ${archivo.variable} h-full`}>
       <body className="min-h-full flex flex-col">
         <SiteHeader content={siteHeaderContent} />
         {children}

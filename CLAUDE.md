@@ -31,6 +31,7 @@ Quiet white, Posh style: minimal, lots of white space, one huge tight headline p
 | `ring` | #0b0b0b | focus outline |
 
 - Font: Inter via `next/font` (`font-sans`, `font-heading`).
+- `font-wordmark` (Archivo, wide heavy italic) is only for the TikoPoa wordmark in the site header (owner decision). Everything else is Inter.
 - `headline` utility: weight 500, tracking -0.045em, line-height 0.95. Add a size with it, e.g. `headline text-[44px]`.
 - `eyebrow` utility: 11px, weight 600, uppercase, tracking 0.14em, `muted-foreground`.
 - `tabular-nums` for counts and countdowns.

@@ -43,4 +43,17 @@ test.describe("Header", () => {
     expect(wordmarkBox.y).toBeLessThanOrEqual(24);
     expect(wordmarkBox.height).toBeGreaterThanOrEqual(44);
   });
+
+  test("keeps the wordmark in the top-left corner while scrolling", async ({ page }) => {
+    const width = page.viewportSize()!.width;
+    await page.setViewportSize({ width, height: 400 });
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    expect(await page.evaluate(() => window.scrollY)).toBeGreaterThan(100);
+
+    const wordmark = page.getByRole("banner").getByRole("link", { name: "TikoPoa" });
+    await expect(wordmark).toBeInViewport();
+    const box = (await wordmark.boundingBox())!;
+    expect(box.x).toBeLessThanOrEqual(24);
+    expect(box.y).toBeLessThanOrEqual(24);
+  });
 });
