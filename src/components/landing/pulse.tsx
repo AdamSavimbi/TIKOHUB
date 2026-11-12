@@ -1,5 +1,8 @@
 "use client";
 
+import { ArrowUpRight } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -30,6 +33,7 @@ type PulseProps = { content: PulseContent };
 
 export function Pulse({ content }: PulseProps) {
   const { nextOnSale, chat } = content;
+  const onBanner = nextOnSale.banner !== null;
   const [elapsed, setElapsed] = useState(0);
 
   // One clock drives both the countdown and the conversation loop.
@@ -73,11 +77,40 @@ export function Pulse({ content }: PulseProps) {
           {content.headline}
         </h2>
 
-        <div className="mt-[22px] md:mt-10 md:grid md:grid-cols-2 md:items-start md:gap-6">
-          {/* Next on-sale */}
-          <div className="rounded-card bg-secondary px-5 pt-[18px] pb-4 md:px-7 md:pt-6 md:pb-6">
-            <p className="eyebrow leading-[normal]">{nextOnSale.label}</p>
-            <p className="mt-1 text-xl leading-[normal] font-semibold tracking-[-0.01em]">
+        <div className="mt-[22px] md:mt-10 md:grid md:grid-cols-[auto_minmax(0,1fr)] md:items-start md:gap-6">
+          {/* Next on-sale: sized to its digits, with the event's banner behind it when there is one. */}
+          <div
+            data-testid="next-on-sale"
+            className={cn(
+              "relative isolate overflow-hidden rounded-card px-5 pt-[18px] pb-4 md:px-7 md:pt-6 md:pb-6",
+              onBanner ? "bg-ink text-ink-foreground" : "bg-secondary",
+            )}
+          >
+            {nextOnSale.banner && (
+              <>
+                <Image
+                  src={nextOnSale.banner}
+                  alt=""
+                  fill
+                  loading="eager"
+                  sizes="(min-width: 768px) 560px, 100vw"
+                  className="-z-10 object-cover"
+                />
+                {/* Tint keeps white text readable on any photo. */}
+                <span aria-hidden="true" className="absolute inset-0 -z-10 bg-ink/60" />
+              </>
+            )}
+            <Link
+              href={nextOnSale.href}
+              aria-label={nextOnSale.linkLabel}
+              className="absolute top-3 right-3 flex size-11 items-center justify-center rounded-pill bg-background text-foreground transition-colors hover:bg-pill md:top-4 md:right-4"
+            >
+              <ArrowUpRight className="size-5" aria-hidden="true" />
+            </Link>
+            <p className={cn("eyebrow pr-12 leading-[normal]", onBanner && "text-ink-foreground/85")}>
+              {nextOnSale.label}
+            </p>
+            <p className="mt-1 pr-12 text-xl leading-[normal] font-semibold tracking-[-0.01em]">
               {nextOnSale.eventName}
             </p>
             <div
@@ -85,11 +118,11 @@ export function Pulse({ content }: PulseProps) {
               aria-label={nextOnSale.timerLabel}
               className="mt-3 flex items-start gap-2.5"
             >
-              <TimeUnit value={time.hh} unit={nextOnSale.units.hours} />
-              <Colon />
-              <TimeUnit value={time.mm} unit={nextOnSale.units.minutes} />
-              <Colon />
-              <TimeUnit value={time.ss} unit={nextOnSale.units.seconds} />
+              <TimeUnit value={time.hh} unit={nextOnSale.units.hours} onBanner={onBanner} />
+              <Colon onBanner={onBanner} />
+              <TimeUnit value={time.mm} unit={nextOnSale.units.minutes} onBanner={onBanner} />
+              <Colon onBanner={onBanner} />
+              <TimeUnit value={time.ss} unit={nextOnSale.units.seconds} onBanner={onBanner} />
             </div>
           </div>
 
@@ -132,22 +165,25 @@ export function Pulse({ content }: PulseProps) {
   );
 }
 
-function TimeUnit({ value, unit }: { value: string; unit: string }) {
+function TimeUnit({ value, unit, onBanner }: { value: string; unit: string; onBanner: boolean }) {
   return (
     <div className="flex flex-col gap-1">
       <span className="text-[54px] leading-none font-medium tracking-[-0.04em] tabular-nums md:text-[64px] lg:text-[96px]">
         {value}
       </span>
-      <span className="eyebrow leading-[normal]">{unit}</span>
+      <span className={cn("eyebrow leading-[normal]", onBanner && "text-ink-foreground/85")}>{unit}</span>
     </div>
   );
 }
 
-function Colon() {
+function Colon({ onBanner }: { onBanner: boolean }) {
   return (
     <span
       aria-hidden="true"
-      className="text-[40px] leading-[1.1] text-muted-foreground/55 md:text-[48px] lg:text-[72px]"
+      className={cn(
+        "text-[40px] leading-[1.1] md:text-[48px] lg:text-[72px]",
+        onBanner ? "text-ink-foreground/60" : "text-muted-foreground/55",
+      )}
     >
       :
     </span>

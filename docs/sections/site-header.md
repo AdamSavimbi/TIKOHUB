@@ -1,39 +1,51 @@
 # Site header
 
-Top of every page: the TikoPoa wordmark in the top-left corner, kept there while the page scrolls. The header pill joins it in ticket #6.
+Top of every page, fixed while scrolling: the TikoPoa wordmark and the header pill with links, a dropdown, search and the main actions.
 
-- **Design spec:** `design/00-global-header-pill/` (pill not built yet; the wordmark follows the owner's requests, not the mock-up)
-- **Status:** approved 2026-11-12
+- **Design spec:** `design/00-global-header-pill/` (`Desktop.dc.html`, `Main.dc.html`, `SPEC.md`), inspired by the Partiful pill and dropdown
+- **Status:** approved 2026-11-12 (ticket #6)
 
 ## Files
 
-- `src/components/site-header.tsx`: the header (server component).
-- `src/lib/mock/site-header.ts`: brand name and link, plus the `SiteHeaderContent` type.
+- `src/components/site-header.tsx`: the header (client component).
+- `src/lib/mock/site-header.ts`: all text, links and routes, plus the `SiteHeaderContent` type.
 - `src/app/layout.tsx`: renders it once for every page and loads the wordmark font.
-- `src/app/globals.css`: the `font-wordmark` token.
+- `src/app/globals.css`: the `font-wordmark` and `shadow-float` tokens.
 
 ## What it does
 
-- **Wordmark:** "TikoPoa" in Archivo, wide heavy italic, 24px on desktop and 20px on phones. Links to the home page.
-- **Position:** 20px from the left edge on desktop, 16px on phones, outside the section gutter.
-- **Sticky:** a white bar (64px desktop, 56px phone) stays at the top while the page scrolls.
+- **Desktop (1024px and up):** the wordmark in the top-left corner, then a grey pill (max 880px, centred) with Explore, Organize and Help, a search icon, a white "Log in" and a black "Create event".
+- **Highlight chip:** hovering, focusing or opening a link puts a white chip behind it.
+- **Dropdown:** each link opens a frosted panel 10px under the pill, the full width of the pill: two link columns and one feature card. The page behind blurs. Closes on mouse leave, a click outside or Escape. No page load.
+- **Blur fallback:** without `backdrop-filter`, the page gets a plain white tint and the panel is solid pill grey.
+- **Phones and tablets (below 1024px):** the wordmark inside the pill, a search icon, a black "Log in" and a menu button. The menu opens a list (Explore, Organize, My tickets, Help, Create event) and a "Selling fast" card.
+- **Search:** the search icon turns the pill into a search field with the placeholder "Try “Free events this weekend”". It takes focus, closes on Escape or its close button (focus returns to the icon), and Enter goes to `/events?q=<query>`.
+- **Routes:** every link points to its future route (`/events…`, `/create`, `/login`, `/help…`, `/organizers…`, `/tickets`) and 404s until that page exists.
 
 ## Data
 
 - The component takes `content: SiteHeaderContent` as a prop. Today it receives `siteHeaderContent` from the mock file.
+- Feature cards have an optional `image`; until event photos exist they show an arrow instead.
 
 ## Accessibility
 
-- The wordmark is a real link with a 44px touch target. Ink on white.
+- Built on Base UI's navigation menu (desktop) and popover (phone menu): keyboard opening, Escape, outside click and focus return come from them.
+- Every control is at least 44px. The search field has no border, so the pill gets an ink outline while it has focus.
+- Panel links underline on hover instead of turning terracotta, which would fall just under 4.5:1 on the grey panel.
+- A tap on the phone menu focuses the list itself; the keyboard focuses the first link.
 
 ## Decisions
 
-- **Small Posh-style wordmark, not the large one in the page-flow mock-up:** owner decision.
-- **Archivo for the wordmark only:** owner asked for the look of the Posh logo; Archivo is the closest free typeface. Everything else stays Inter.
-- **Corner position:** owner prefers white space in the middle to a gap on the left.
-- **Solid white bar:** keeps the wordmark readable over photos and cards that scroll under it.
-- **Shown on phones too:** issue #4 planned a "T" circle on phones; the owner asked for the wordmark first. Revisit in #6.
+- **Small corner wordmark outside the pill on desktop:** owner decision from #5, kept here.
+- **Wordmark inside the phone pill instead of a "T" circle:** owner decision.
+- **Phone pill shows "Log in" (black), not "Create event":** owner wants it minimal and direct; "Create event" moves into the phone menu.
+- **Phone layout up to 1024px:** at 768px the desktop pill was too cramped.
+- **No "Refunds" link:** the refund policy is not confirmed yet.
+- **No photo in the dropdown cards yet:** the design's gradients are against the theme, and event photos arrive with the hero (#7).
+- **Base UI primitives used directly, not the shadcn wrappers:** the wrappers' styling would all have been overridden.
+- **Known, left for later:** the gap between the pill's left edge and "Explore" on desktop (owner: keep for now).
 
 ## History
 
+- 2026-11-12: Header pill added: links, dropdown, search, phone menu ([changelog](../CHANGELOG.md#2026-11-12-header-pill)).
 - 2026-11-12: Wordmark added, moved to the corner, restyled and made sticky ([changelog](../CHANGELOG.md#2026-11-12-groundwork-for-the-landing-page)).

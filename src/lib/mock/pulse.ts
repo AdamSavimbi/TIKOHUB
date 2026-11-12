@@ -32,7 +32,18 @@ export type PulseContent = {
   headline: string;
   nextOnSale: {
     label: string;
+    /** The pinned event. Change these fields to pin a different event. */
     eventName: string;
+    /** The event's page. */
+    href: string;
+    /** Accessible name of the arrow link to the event page. */
+    linkLabel: string;
+    /**
+     * The event's banner, shown behind the countdown with a dark tint so the
+     * white text stays readable. Path under /public (e.g. "/events/jazz.jpg"),
+     * or null for the plain grey card.
+     */
+    banner: string | null;
     /** Seconds until the sale opens, counted from page load. */
     secondsUntil: number;
     timerLabel: string;
@@ -55,6 +66,9 @@ export const pulseContent: PulseContent = {
   nextOnSale: {
     label: "Next on-sale",
     eventName: "Jazz at the Gardens",
+    href: "/events/jazz-at-the-gardens",
+    linkLabel: "View Jazz at the Gardens",
+    banner: null,
     secondsUntil: 2 * 3600 + 14 * 60 + 9,
     timerLabel: "Time until the sale opens",
     units: { hours: "Hrs", minutes: "Min", seconds: "Sec" },
