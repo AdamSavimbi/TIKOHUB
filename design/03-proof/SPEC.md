@@ -1,5 +1,7 @@
 # 03 Proof (stats that count up)
 
+> **GitHub issue #4 overrides this spec where they disagree.** The layout is not HustleSasa's four columns: it is one hero stat shown very large plus three supporting stats (desktop: hero stat on the left half, three stacked on the right with hairlines; mobile: hero stat first, then three rows). The numbers do not count up: each digit rolls into place like an odometer, staggered left to right, once. No "Replay" button.
+
 - Design file: `design/Proof.dc.html` (mobile).
 - Inspiration: `inspiration/frame-01..08.jpg` (HustleSasa recording: numbers count up as the section scrolls in) and `inspiration/flow-crop-proof.png` (the owner's mock-up shows HustleSasa's section: small caps heading left, a sentence right, four tall columns with a label and a one-line caption).
 

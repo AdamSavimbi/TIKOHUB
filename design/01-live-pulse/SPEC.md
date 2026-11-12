@@ -13,7 +13,7 @@ The first section under the header.
 - Countdown starts at 02:14:09 and ticks every second (role="timer").
 - Chat loops on a 22-second cycle: site bubble (grey, left, avatar) "1,284 people are browsing right now." then visitor bubble (black, right) "How many Rooftop Sessions tickets are left?" then site "412 left, and they are going fast." then a ticket card bubble (poster, name, date, "412 left" in warning red, black "Get tickets" button) then visitor "And Jazz at the Gardens?" then site bubble in terracotta "Sales open in HH:MM:SS" using the live countdown.
 - Typing dots about 2 seconds before each message. New bubbles fade and slide up.
-- Reduced motion: show the whole conversation at once, no dots. Provide a Pause/Play button.
+- No Pause/Play button, and the chat keeps looping under reduced motion (owner decision, GitHub issue #4).
 
 ## Differences
 - Messages carry live traffic, stock and a countdown instead of party chat (on purpose).

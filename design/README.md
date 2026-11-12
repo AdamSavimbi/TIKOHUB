@@ -30,7 +30,7 @@ Next.js (App Router) + TypeScript + Tailwind + shadcn/ui (Base UI) + Supabase. U
 
 Tokens: font Inter. ink #0b0b0b, grey #6b6b66, hairline #e4e4e0, soft #f2f2f0, pill #efefec, terracotta #a95443 (main buttons, white text), live green #1f6f4a, warning red #b4361b. Quiet white Posh style: white page, hairlines instead of shadows, pill buttons, no decorative gradients, huge tight headlines (weight 500, tracking about -0.045em, line-height 0.95).
 
-Accessibility: 44px touch targets, 4.5:1 text contrast, real buttons and links, respect prefers-reduced-motion, a visible Pause control for anything that moves on its own.
+Accessibility: 44px touch targets, 4.5:1 text contrast, real buttons and links, respect prefers-reduced-motion, a visible Pause control for anything that moves on its own. Owner exception (GitHub issue #4): Live pulse, the hero lineup and Organizers have no Pause/Play button and keep moving under reduced motion. Where a section spec disagrees with issue #4, the issue wins.
 
 ## Brand name
 

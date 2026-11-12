@@ -45,8 +45,9 @@ Quiet white, Posh style: minimal, lots of white space, one huge tight headline p
 - Touch targets at least 44px.
 - Text contrast at least 4.5:1. Check hover and disabled states too.
 - Keyboard focus always visible (ink outline, already global).
-- Respect `prefers-reduced-motion` by default: no looping or sliding motion; show the final state instantly. The only opt-out is `data-motion="always"` on a section, used only where the owner has decided motion stays (currently: Live pulse).
-- Looping or auto-moving content gets a visible Pause/Play button (44px), unless the owner has waived it for that section (currently: Live pulse).
+- Respect `prefers-reduced-motion` by default: no looping or sliding motion; show the final state instantly. The only opt-out is `data-motion="always"` on a section, used only where the owner has decided motion stays.
+- Looping or auto-moving content gets a visible Pause/Play button (44px), unless the owner has waived it for that section.
+- Owner decision (issue #4): Live pulse, the lineup and Organizers have no Pause/Play button and keep moving under reduced motion (`data-motion="always"`). Do not add pause controls to them as an accessibility fix. Their built-in ways to stop stay: hover, focus or press-and-hold pauses the lineup; selecting a name stops Organizers. This knowingly departs from the WCAG "pause, stop, hide" rule.
 - Real `<button>` and `<a>` elements only. No clickable divs.
 - Decorative motion is hidden from screen readers. Give them one clear text summary instead.
 - Clean up every timer, interval and observer on unmount.
@@ -65,7 +66,7 @@ Quiet white, Posh style: minimal, lots of white space, one huge tight headline p
 
 When a section or page is done:
 
-1. Run `npx tsc --noEmit` and `npm run lint`, and fix every error.
+1. Run `npx tsc --noEmit`, `npm run lint` and `npm test`, and fix every error. `npm test` runs the Playwright page tests in `tests/` against the real landing page at 390px and 1440px; each section adds its own checks there.
 2. Start the dev server, screenshot the page at 390px and at 1440px wide, and compare each side by side with the matching `design/<section>/design/*.dc.html` (open it in the browser; `support.js` renders it). Compare 1440px with `Desktop.dc.html` where the section has one; otherwise check it against the section's `SPEC.md`.
 3. List every difference, including small ones (spacing, font size, colour), and fix them.
 4. Report: files created or changed, shadcn components used, and anything uncertain.
