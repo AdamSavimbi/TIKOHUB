@@ -29,7 +29,7 @@ test.describe("Live pulse", () => {
 });
 
 test.describe("Header", () => {
-  test("shows the TikoPoa wordmark at the top left, above Live pulse", async ({ page }) => {
+  test("shows the TikoPoa wordmark in the top-left corner, above Live pulse", async ({ page }) => {
     const wordmark = page.getByRole("banner").getByRole("link", { name: "TikoPoa" });
     await expect(wordmark).toBeVisible();
     await expect(wordmark).toHaveAttribute("href", "/");
@@ -38,8 +38,9 @@ test.describe("Header", () => {
     const wordmarkBox = (await wordmark.boundingBox())!;
     const headingBox = (await heading.boundingBox())!;
     expect(wordmarkBox.y + wordmarkBox.height).toBeLessThanOrEqual(headingBox.y);
-    // Same left edge as the section below it.
-    expect(Math.abs(wordmarkBox.x - headingBox.x)).toBeLessThanOrEqual(4);
+    // Tucked into the top-left corner, not indented with the sections.
+    expect(wordmarkBox.x).toBeLessThanOrEqual(24);
+    expect(wordmarkBox.y).toBeLessThanOrEqual(24);
     expect(wordmarkBox.height).toBeGreaterThanOrEqual(44);
   });
 });
