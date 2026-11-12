@@ -27,3 +27,19 @@ test.describe("Live pulse", () => {
     await expect(countdown).not.toHaveText(before, { timeout: 5_000 });
   });
 });
+
+test.describe("Header", () => {
+  test("shows the TikoPoa wordmark at the top left, above Live pulse", async ({ page }) => {
+    const wordmark = page.getByRole("banner").getByRole("link", { name: "TikoPoa" });
+    await expect(wordmark).toBeVisible();
+    await expect(wordmark).toHaveAttribute("href", "/");
+
+    const heading = page.getByRole("heading", { name: "Happening right now." });
+    const wordmarkBox = (await wordmark.boundingBox())!;
+    const headingBox = (await heading.boundingBox())!;
+    expect(wordmarkBox.y + wordmarkBox.height).toBeLessThanOrEqual(headingBox.y);
+    // Same left edge as the section below it.
+    expect(Math.abs(wordmarkBox.x - headingBox.x)).toBeLessThanOrEqual(4);
+    expect(wordmarkBox.height).toBeGreaterThanOrEqual(44);
+  });
+});
