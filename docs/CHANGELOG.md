@@ -2,6 +2,17 @@
 
 Approved changes only, newest first. Format: [`_templates/changelog-entry.md`](_templates/changelog-entry.md).
 
+## 2026-11-12: Header pill
+
+The header pill on every page, plus owner refinements to the Live pulse countdown. See [Site header](sections/site-header.md), [Live pulse](sections/pulse.md). Ticket #6.
+
+- **Header pill:** links, search, "Log in" and "Create event" in a grey pill beside the corner wordmark, fixed while scrolling.
+- **Dropdown:** frosted panel with link columns and a feature card; the page behind blurs (plain tint where blur is unsupported). Closes on mouse leave, outside click and Escape.
+- **Search:** opens in place of the pill contents, takes focus, closes on Escape, sends the query to `/events?q=`.
+- **Phones:** wordmark inside the pill, black "Log in" and a menu list (owner decisions); phone layout up to 1024px.
+- **Countdown card:** fits its digits on desktop, links to the event, and can show the event's banner behind the countdown (owner request).
+- **Page tests:** dropdown, search, phone menu, sticky pill and the countdown link at 390px and 1440px.
+
 ## 2026-11-12: Groundwork for the landing page
 
 Prepares the page for the section work in issue #4. See [Live pulse](sections/pulse.md), [Site header](sections/site-header.md), [Theme](foundation/theme.md). Ticket #5.
