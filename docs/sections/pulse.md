@@ -42,4 +42,5 @@ First section of the landing page, directly under the header: a live countdown t
 
 ## History
 
+- 2026-11-12: Moved to first on the page, directly under the header ([changelog](../CHANGELOG.md#2026-11-12-groundwork-for-the-landing-page)).
 - 2026-11-09: Section built to match the design at 390px and scaled for desktop ([changelog](../CHANGELOG.md#2026-11-09-live-pulse-section-and-design-preview)).

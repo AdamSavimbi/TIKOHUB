@@ -2,6 +2,16 @@
 
 Approved changes only, newest first. Format: [`_templates/changelog-entry.md`](_templates/changelog-entry.md).
 
+## 2026-11-12: Groundwork for the landing page
+
+Prepares the page for the section work in issue #4. See [Live pulse](sections/pulse.md), [Site header](sections/site-header.md), [Theme](foundation/theme.md). Ticket #5.
+
+- **Live pulse first:** the placeholder hero is removed; Live pulse sits directly under the header.
+- **TikoPoa wordmark:** small Posh-style wordmark in the top-left corner of every page, sticky while scrolling.
+- **Page tests:** `npm test` runs Playwright against the real landing page at 390px and 1440px.
+- **Motion rule corrected:** Live pulse, the lineup and Organizers have no Pause/Play button and keep moving under reduced motion (owner decision). `CLAUDE.md` and the design specs now say so.
+- **Design specs:** the hero and Proof specs point to issue #4 where they disagree with it.
+
 ## 2026-11-09: Live pulse section and design preview
 
 First real homepage section, plus tooling to compare builds with the design. See [Live pulse](sections/pulse.md), [Design preview](foundation/design-preview.md), [Theme](foundation/theme.md).
